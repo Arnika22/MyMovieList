@@ -1,0 +1,84 @@
+.navbarParent {
+  font-size: 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2em;
+  height: 1.5em;
+  box-shadow: 0 0 10px;
+  background-color:rgb(183, 248, 226);
+  z-index: 1000; /* Ensure navbar is on top of other content */
+}
+
+.navbarLogo {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5em;
+  color: var(--navbar-logo-color);
+}
+
+.navbarTitle {
+  font-size: 2em;
+  cursor: pointer;
+  background: var(--navbar-title-background);
+  background: var(--navbar-title-gradient);
+  
+}
+
+
+
+.navbarLinks a {
+  text-decoration: none; 
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navbar-link-color); 
+}
+
+.navbarLinks a:hover {
+  text-decoration: none ;
+}
+.bDiv{
+  display: flex;
+  gap: 20px;
+}
+.navbarButton{
+  background-color: rgb(183, 248, 226);
+  border: none;
+  font-weight: 600;
+}
+
+
+
+@media (max-width: 450px) {
+  .navbarParent {
+    font-size: 10px;
+    padding: 0.8em; /* Adjust padding for smaller screens */
+  }
+
+  .navbarTitle {
+    font-size: 1.5em; /* Adjust title size for smaller screens */
+  }
+
+  .navbarSearch {
+    flex-basis: 30%; /* Adjust search bar width */
+  }
+}
+
+@media (max-width: 320px) {
+  .navbarParent {
+    font-size: 8px;
+    padding: 0.6em; /* Adjust padding for smallest screens */
+  }
+
+  .navbarTitle {
+    font-size: 1.2em; /* Further adjust title size */
+  }
+
+  .navbarSearch {
+    flex-basis: 40%; /* Adjust search bar width */
+  }
+}
