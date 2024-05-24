@@ -1,64 +1,70 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { useNavigate, Link } from "react-router-dom"
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; 
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+import styles from './Signup.module.css';
 
 
-function Login() {
-    const history=useNavigate();
+const Signup = () => {
+    const [userData, setUserData] = useState({ email: "", password: "" }); 
+    const navigate = useNavigate();
 
-    const [email,setEmail]=useState('')
-    const [password,setPassword]=useState('')
+    const inputHandler = (e) => {
+        const { name, value } = e.target;
+        setUserData({ ...userData, [name]: value });
+    };
 
-    async function submit(e){
+    const submitHandler = async (e) => {
         e.preventDefault();
 
-        try{
-
-            await axios.post("http://localhost:8000/signup",{
-                email,password
-            })
-            .then(res=>{
-                if(res.data=="exist"){
-                    alert("User already exists")
-                }
-                else if(res.data=="notexist"){
-                    history("/home",{state:{id:email}})
-                }
-            })
-            .catch(e=>{
-                alert("wrong details")
-                console.log(e);
-            })
-
+        try {
+            const response = await axios.post("http://localhost:3000/signup", userData);
+            if (response.data.status) {
+                localStorage.setItem("userData", JSON.stringify(response.data.data));
+                navigate("/"); // Navigate to home page
+            } else {
+                toast.error(response.data.message); // Display error message using toast
+            }
+        } catch (error) {
+            console.error("An error occurred:", error);
+            toast.error("An error occurred. Please try again.");
         }
-        catch(e){
-            console.log(e);
-
-        }
-
-    }
-
+    };
 
     return (
-        <div className="login">
-
-            <h1>Signup</h1>
-
-            <form action="POST">
-                <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
-                <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
-                <input type="submit" onClick={submit} />
-
+        <div className={styles.signuppage}>
+            <form className={styles.form} onSubmit={submitHandler}>
+                <div>
+                    <label htmlFor="email">Email</label>
+                    <input
+                        id="email"
+                        type='text'
+                        name='email' // Change name to lowercase
+                        placeholder='Enter Email'
+                        required
+                        aria-label="Enter Email"
+                        onChange={inputHandler}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <input
+                        id="password"
+                        type='password'
+                        name='password' // Change name to lowercase
+                        placeholder='Enter Password'
+                        required
+                        aria-label="Enter Password"
+                        onChange={inputHandler}
+                    />
+                </div>
+                <div className={styles.buttonGroup}>
+                    <button type="submit" className={styles.signupButton}>Signup</button>
+                </div>
             </form>
-
-            <br />
-            <p>OR</p>
-            <br />
-
-            <Link to="/">Login Page</Link>
-
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Signup;

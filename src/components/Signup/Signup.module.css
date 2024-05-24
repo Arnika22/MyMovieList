@@ -1,11 +1,11 @@
+
 /* Signup.module.css */
 
 .signuppage {
-    margin-top: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 86vh;
+    height: 82vh;
     background-color: #f0f2f5;
 }
 
@@ -65,3 +65,5 @@ input[type="password"]:focus {
 .signupButton:hover {
     background-color: #0056b3;
 }
+
+

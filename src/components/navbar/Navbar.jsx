@@ -4,29 +4,26 @@ import styles from './Navbar.module.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  
-  const handleClear=()=>{
-    localStorage.removeItem('userdata');
-    navigate("/");
+  const userData = localStorage?.getItem("uerData")
+  const handleClear = () => {
+    localStorage.removeItem('userData');
     window.location.reload();
+    navigate("/");
   }
-  
-  
+
 
   return (
     <>
-    <div className={styles.navbarParent}>
-      <div className={styles.navbarLogo} aria-label="logo">🎥🎬</div>
-      <div className={styles.navbarTitle}>THE MOVIECATALOG</div>   
-      <div className={styles.bDiv}>
-      <button className={styles.navbarButton} onClick={handleClear}>LogOut</button>
-      <div className={styles.navbarLinks}>
-        <Link to="/login">Login / Sign In</Link>  
+      <div className={styles.navbarParent}>
+        <div className={styles.navbarLogo} >🎬🎥</div>
+        <a className={styles.area} href={"/"}> <div className={styles.navbarTitle} >THE MOVIECATALOG</div></a>
+        <div className={styles.bDiv}>
+          <button className={styles.navbarButton} onClick={handleClear}>LogOut</button>
+          <div className={styles.navbarLinks}>
+            <Link to="/login">Login</Link>
+          </div>
+        </div>
       </div>
-      
-      </div> 
-    </div>
-    
     </>
   );
 };

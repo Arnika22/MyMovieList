@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import MoviesChild from '../../components/ChildComponets/MoviesChild';
 import styles from './MoviesPage.module.css';
 
-const MoviesPage = ({ movieData }) => {
+const MoviesPage = ({ movieData}) => {
  
   const [searchResults, setSearchResults] = useState(movieData);
   const [startIndex, setStartIndex] = useState(0);
@@ -13,7 +13,7 @@ const MoviesPage = ({ movieData }) => {
   const [rating, setRating] = useState('');
   const [lengthRange, setLengthRange] = useState('');
 
-  const moviesPerPage = 10;
+  const moviesPerPage = 12;
 
   useEffect(() => {
     filterMovies();
@@ -71,7 +71,7 @@ const MoviesPage = ({ movieData }) => {
     }
 
     if (lengthRange) {
-      const [minLength, maxLength] = lengthRange.split('-').map(Number);
+      const [minLength, maxLength] = lengthRange.split('-');
       results = results.filter(movie =>
         movie.length_in_min >= minLength && movie.length_in_min <= maxLength
       );
@@ -89,7 +89,7 @@ const MoviesPage = ({ movieData }) => {
     setStartIndex(prevIndex => Math.max(prevIndex - moviesPerPage, 0));
   };
 
-  const currentPage = Math.floor(startIndex / moviesPerPage) + 1;
+  const currentPage = Math.floor(startIndex / moviesPerPage) ;
   const pageCount = Math.ceil(searchResults?.length/ moviesPerPage);
 
   return (
@@ -146,6 +146,7 @@ const MoviesPage = ({ movieData }) => {
           <option value="121-150">121-150</option>
         
         </select>
+        
       </div>
       <div className={styles.moviesParent}>
         {searchResults?.slice(startIndex, startIndex + moviesPerPage).map((data) => (
