@@ -22,13 +22,13 @@ const Signup = () => {
             const response = await axios.post("http://localhost:3000/signup", userData);
             if (response.data.status) {
                 localStorage.setItem("userData", JSON.stringify(response.data.data));
-                navigate("/"); // Navigate to home page
+                toast("Successfully signup")
+                navigate("/");
             } else {
-                toast.error(response.data.message); // Display error message using toast
+                toast(response.data.message); // Display error message using toast
             }
         } catch (error) {
-            console.error("An error occurred:", error);
-            toast.error("An error occurred. Please try again.");
+            toast.error("Something is Going Wrong");
         }
     };
 
@@ -40,7 +40,7 @@ const Signup = () => {
                     <input
                         id="email"
                         type='text'
-                        name='email' // Change name to lowercase
+                        name='email' 
                         placeholder='Enter Email'
                         required
                         aria-label="Enter Email"
@@ -52,7 +52,7 @@ const Signup = () => {
                     <input
                         id="password"
                         type='password'
-                        name='password' // Change name to lowercase
+                        name='password' 
                         placeholder='Enter Password'
                         required
                         aria-label="Enter Password"

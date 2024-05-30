@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styles from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Login = () => {
     const [userData, setUserData] = useState({ email: "", password: "" });
@@ -15,26 +16,26 @@ const Login = () => {
     };
 
     const request = async () => {
-        console.log(userData);
+
+        // console.log(userData);
         try {
-            console.log(userData);
+            // console.log(userData);
             const response = await axios.post("http://localhost:3000/login", userData);
-            console.log(response.data.status);
+            // console.log(response.data.status);
             if (response.data.status) {
-                localStorage.setItem("userData", JSON.stringify(response.data.data[0]));
+                localStorage.setItem("userData", JSON.stringify(response.data.data));
                 window.location.reload();
-                navigate("/");
             } else {
                 setError(response.data.messages);
-                toast.error(response.data.messages);
+                // toast.error(response.data.messages);
             }
         } catch (error) {
             // console.log(error);
-            setError("An error occurred. Please try again."); // Update error state
+            setError("User not exsits.Signup first"); // Update error state
         }
     }
 
-    const clickHandler = async (e) => {
+    const clickHandler =(e) => {
         e.preventDefault();
         request();
     }
@@ -48,26 +49,24 @@ const Login = () => {
         <div className={styles.loginpage}>
             <form className={styles.form} onSubmit={clickHandler}>
                 <div>
-                    <label htmlFor="email">Email</label> {/* Changed 'email' to 'Email' */}
+                    <label htmlFor="email">Email</label>
                     <input
                         id="email"
                         type='text'
                         name='email'
                         placeholder='Enter Email'
                         required
-                        aria-label="Enter email"
                         onChange={inputHandler}
                     />
                 </div>
                 <div>
-                    <label htmlFor="password">Password</label> {/* Changed 'password' to 'Password' */}
+                    <label htmlFor="password">Password</label>
                     <input
                         id="password"
                         type='password'
                         name='password'
                         placeholder='Enter Password'
                         required
-                        aria-label="Enter password"
                         onChange={inputHandler}
                     />
                 </div>

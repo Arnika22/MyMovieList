@@ -43,38 +43,37 @@ const MoviesPage = ({ movieData}) => {
     let results = movieData;
 
     if (title) {
-      results = results.filter((movie) => {
-        const movieTitle = movie.title ? movie.title.toString() : ''; 
-        const titleWords = movieTitle.toLowerCase().split(' ');
-        const searchWords = title.toLowerCase().split(' ');
-        return searchWords.some((searchWord) => titleWords.includes(searchWord));
-      });
+      results=results.filter((movie)=>{
+      const movieTitle=movie.title?movie.title.toString() :"";
+      const titleWords=movieTitle.toLowerCase().split(" ");
+      const searchWords=title.toLowerCase().split(" ")
+      return searchWords.some((searchWord)=>titleWords.includes(searchWord))
+      })
     }
 
     if (year) {
-      results = results.filter(movie =>
-        movie.release_year == year
-      );
+      results=results.filter(movie=>
+        movie.release_year==year)
     }
     if (genre) {
-      results = results.filter(movie =>
+      results=results.filter(movie=>
         movie.genres.toLowerCase().includes(genre.toLowerCase())
-      );
+        )
     }
 
     if (rating) {
-      const ratingValue = parseFloat(rating);
-      results = results.filter((movie) => {
-        const movieRating = parseFloat(movie.imdb_rating);
-        return movieRating >= ratingValue && movieRating < ratingValue + 1;
-      });
+      const ratingValue=parseFloat(rating);
+      results=results.filter((movie)=>{
+        const movieRating=parseFloat(movie.imdb_rating)
+        return movieRating>=ratingValue && movieRating<ratingValue+1
+        
+      })
     }
 
     if (lengthRange) {
-      const [minLength, maxLength] = lengthRange.split('-');
-      results = results.filter(movie =>
-        movie.length_in_min >= minLength && movie.length_in_min <= maxLength
-      );
+      const [minlength,maxlength]=lengthRange.split("-")
+      results=results.filter(movie=>
+        movie.length_in_min>=minlength && movie.length_in_min<=maxlength)
     }
 
     setSearchResults(results);

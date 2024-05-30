@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes,Navigate } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
-import { useState, useEffect } from 'react';
 import MoviesPage from './pages/moviesPage/MoviesPage';
 import moviesData from './assets/movies.json';
 import  Login  from './components/Login/Login';
@@ -9,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 
 const App = () => {
     const userData = localStorage.getItem('userData');
- console.log(userData);
+//  console.log(userData);
     return (
       <BrowserRouter>
       <div>

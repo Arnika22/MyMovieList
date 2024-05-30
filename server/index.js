@@ -22,7 +22,7 @@ const readUsers = () => {
 
 
 const writeUsers = (users) => {
-    fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+    fs.writeFileSync(USERS_FILE, JSON.stringify(users));
 };
 
 // Signup endpoint
@@ -32,6 +32,7 @@ app.post('/signup', (req, res) => {
     if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required.' });
     }
+    
 
     const users = readUsers();
     const userExists = users.find(user => user.email === email);
@@ -50,9 +51,9 @@ app.post('/signup', (req, res) => {
 // Login endpoint
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    // console.log("****************", req.body);
+    // console.log( req.body);
     if (!email || !password) {
-        console.log('Email and password are required.');
+        // console.log('Email and password are required.');
         return res.status(400).json({ error: 'Email and password are required.' });
     }
 
