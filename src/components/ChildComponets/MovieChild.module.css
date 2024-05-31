@@ -17,8 +17,8 @@
   .cardImage {
     width: 100%;
     height: 45%;
-    object-fit: cover; /*Changed to cover for better aspect ratio*/
-    border-radius: 10px 10px 0px 0px;/* Corrected border radius */
+    object-fit: cover; 
+    border-radius: 10px 10px 0px 0px;
   }
   
   .cardContent {

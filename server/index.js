@@ -78,10 +78,10 @@ app.post('/login', (req, res) => {
             // console.log('Invalid password.');
             return res.status(401).json({ status: false, message: 'Invalid password', data: [] });
         }
-        else{
+        // else{
         // console.log('Login successful.');
         return res.status(200).json({ status: true, message: 'Login successful.', data: userdata });
-        }
+        // }
     } else {
         // console.log('Invalid Email or Password.');
         return res.status(200).json({ status: false, message: 'Invalid Email or Password.', data: [] });

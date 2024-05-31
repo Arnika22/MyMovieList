@@ -64,7 +64,6 @@ const MoviesPage = ({ movieData}) => {
     if (rating) {
       const ratingValue=parseFloat(rating);
       results=results.filter((movie)=>{
-        // const movieRating=parseFloat(movie.imdb_rating)
         return movie.imdb_rating>=ratingValue && movie.imdb_rating<ratingValue+1
         
       })

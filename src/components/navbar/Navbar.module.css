@@ -20,14 +20,13 @@
   font-size: 2em;
   /* height: 20px; */
   /* width: 20px; */
-  color: var(--navbar-logo-color);
+
 }
 
 .navbarTitle {
   font-size: 2em;
   cursor: pointer;
-  background: var(--navbar-title-background);
-  background: var(--navbar-title-gradient);
+  
   
 }
 .area{
@@ -41,7 +40,7 @@
   text-decoration: none; 
   font-size: 15px;
   font-weight: 600;
-  color: var(--navbar-link-color); 
+  color: black;
 }
 
 .navbarLinks a:hover {
