@@ -44,7 +44,7 @@ const MoviesPage = ({ movieData}) => {
 
     if (title) {
       results=results.filter((movie)=>{
-      const movieTitle=movie.title?movie.title.toString() :"";
+      const movieTitle=movie.title.toString() ;
       const titleWords=movieTitle.toLowerCase().split(" ");
       const searchWords=title.toLowerCase().split(" ")
       return searchWords.some((searchWord)=>titleWords.includes(searchWord))
@@ -64,8 +64,8 @@ const MoviesPage = ({ movieData}) => {
     if (rating) {
       const ratingValue=parseFloat(rating);
       results=results.filter((movie)=>{
-        const movieRating=parseFloat(movie.imdb_rating)
-        return movieRating>=ratingValue && movieRating<ratingValue+1
+        // const movieRating=parseFloat(movie.imdb_rating)
+        return movie.imdb_rating>=ratingValue && movie.imdb_rating<ratingValue+1
         
       })
     }
@@ -79,13 +79,14 @@ const MoviesPage = ({ movieData}) => {
     setSearchResults(results);
     setStartIndex(0);
   };
+  
 
   const handleNext = () => {
-    setStartIndex(prevIndex => prevIndex + moviesPerPage);
+    setStartIndex(startIndex => startIndex + moviesPerPage);
   };
 
   const handlePrevious = () => {
-    setStartIndex(prevIndex => Math.max(prevIndex - moviesPerPage, 0));
+    setStartIndex(startIndex => Math.max(startIndex - moviesPerPage, 0));
   };
 
   const currentPage = Math.floor(startIndex / moviesPerPage) ;
@@ -141,7 +142,7 @@ const MoviesPage = ({ movieData}) => {
           <option value="1-30">1-30</option>
           <option value="31-60">31-60</option>
           <option value="61-90">61-90</option>
-          <option value="91-120">91-120</option>
+          <option value="91-120">90-120</option>
           <option value="121-150">121-150</option>
         
         </select>

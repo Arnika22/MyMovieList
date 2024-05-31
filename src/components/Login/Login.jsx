@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const [userData, setUserData] = useState({ email: "", password: "" });
-    const [error, setError] = useState(null);
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
     const inputHandler = (e) => {
