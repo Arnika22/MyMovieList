@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f2f5;
+    /* background-color: #f0f2f5; */
 }
 
 .form {
@@ -61,11 +61,11 @@ input[type="password"]:focus {
 }
 
 .signupButton {
-    background-color: #6c757d;
+    background-color: #757c83;
 }
 
 .loginButton:hover {
-    background-color: #0056b3;
+    background-color: #0260c5;
 }
 
 .signupButton:hover {
@@ -82,4 +82,11 @@ input[type="password"]:focus {
     margin-top: 15px;
     font-size: 14px;
     color: #333;
+}
+body{
+    background-image: url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?w=1380&t=st=1719411305~exp=1719411905~hmac=a2f3187c2d657ba61771e6bd83908b632d8e3f2f3458619e28e4ec4468b481fd');
+    background-repeat: no-repeat;
+    /* width: 200vw; */
+    background-size: cover;
+    overflow: hidden;
 }
