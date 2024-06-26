@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 import MoviesChild from '../../components/ChildComponets/MoviesChild';
 import styles from './MoviesPage.module.css';
 
-const MoviesPage = ({ movieData}) => {
- 
+const MoviesPage = ({ movieData, onFavoriteClick }) => {
+  movieData = movieData.sort((a, b) => parseFloat(b.imdb_rating) - parseFloat(a.imdb_rating));
+
   const [searchResults, setSearchResults] = useState(movieData);
   const [startIndex, setStartIndex] = useState(0);
   const [title, setTitle] = useState('');
@@ -40,56 +42,54 @@ const MoviesPage = ({ movieData}) => {
   };
 
   const filterMovies = () => {
-    let results = movieData;
+    let results = movieData.slice(); // Create a copy to avoid mutating original data
+    results = results.sort((a, b) => parseFloat(a.imdb_rating) - parseFloat(b.imdb_rating));
 
     if (title) {
-      results=results.filter((movie)=>{
-      const movieTitle=movie.title.toString() ;
-      const titleWords=movieTitle.toLowerCase().split(" ");
-      const searchWords=title.toLowerCase().split(" ")
-      return searchWords.some((searchWord)=>titleWords.includes(searchWord))
-      })
+      results = results.filter((movie) => {
+        const movieTitle = movie.title.toString();
+        const titleWords = movieTitle.toLowerCase();
+        const searchWords = title.toLowerCase();
+        return titleWords.includes(searchWords);
+      });
     }
 
     if (year) {
-      results=results.filter(movie=>
-        movie.release_year==year)
+      results = results.filter((movie) => movie.release_year == year);
     }
+
     if (genre) {
-      results=results.filter(movie=>
+      results = results.filter((movie) =>
         movie.genres.toLowerCase().includes(genre.toLowerCase())
-        )
+      );
     }
 
     if (rating) {
-      const ratingValue=parseFloat(rating);
-      results=results.filter((movie)=>{
-        return movie.imdb_rating>=ratingValue && movie.imdb_rating<ratingValue+1
-        
-      })
+      const ratingValue = parseFloat(rating);
+      results = results.filter((movie) => movie.imdb_rating >= ratingValue && movie.imdb_rating < ratingValue + 1);
     }
 
     if (lengthRange) {
-      const [minlength,maxlength]=lengthRange.split("-")
-      results=results.filter(movie=>
-        movie.length_in_min>=minlength && movie.length_in_min<=maxlength)
+      const [minlength, maxlength] = lengthRange.split("-");
+      results = results.filter((movie) =>
+        movie.length_in_min >= minlength && movie.length_in_min <= maxlength
+      );
     }
 
     setSearchResults(results);
     setStartIndex(0);
   };
-  
 
   const handleNext = () => {
-    setStartIndex(startIndex => startIndex + moviesPerPage);
+    setStartIndex((startIndex) => startIndex + moviesPerPage);
   };
 
   const handlePrevious = () => {
-    setStartIndex(startIndex => Math.max(startIndex - moviesPerPage, 0));
+    setStartIndex((startIndex) => Math.max(startIndex - moviesPerPage, 0));
   };
 
-  const currentPage = Math.floor(startIndex / moviesPerPage) ;
-  const pageCount = Math.ceil(searchResults?.length/ moviesPerPage);
+  const currentPage = Math.floor(startIndex / moviesPerPage);
+  const pageCount = Math.ceil(searchResults?.length / moviesPerPage);
 
   return (
     <>
@@ -143,14 +143,21 @@ const MoviesPage = ({ movieData}) => {
           <option value="61-90">61-90</option>
           <option value="91-120">90-120</option>
           <option value="121-150">121-150</option>
-        
         </select>
-        
+        <Link to="/favorites">
+          <button className={styles.favoritesButton}>View Favorites</button>
+        </Link>
       </div>
       <div className={styles.moviesParent}>
-        {searchResults?.slice(startIndex, startIndex + moviesPerPage).map((data) => (
-          <MoviesChild key={data.movie_url} {...data} />
-        ))}
+        {searchResults
+          ?.slice(startIndex, startIndex + moviesPerPage)
+          .map((data) => (
+            <MoviesChild
+              key={data.movie_url}
+              {...data}
+              onFavoriteClick={() => onFavoriteClick(data)}
+            />
+          ))}
       </div>
       <div className={styles.pagination}>
         <button
@@ -160,7 +167,9 @@ const MoviesPage = ({ movieData}) => {
         >
           <ChevronLeft />
         </button>
-        <div className={styles.pageCount}>{currentPage} / {pageCount}</div>
+        <div className={styles.pageCount}>
+          {currentPage + 1} / {pageCount}
+        </div>
         <button
           className={styles.paginationArrow}
           onClick={handleNext}
@@ -174,4 +183,3 @@ const MoviesPage = ({ movieData}) => {
 };
 
 export default MoviesPage;
-
